@@ -19,3 +19,7 @@
 body {
   background-color: white;
 }
+.react-multiple-carousel__arrow {
+  background-color: red !important;
+  display: none !important;
+}

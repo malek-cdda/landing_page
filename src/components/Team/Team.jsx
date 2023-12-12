@@ -1,33 +1,129 @@
+"use client";
 import Image from "next/image";
 import React from "react";
-
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+const responsive = {
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+    slidesToSlide: 3, // optional, default to 1.
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 464 },
+    items: 2,
+    slidesToSlide: 2, // optional, default to 1.
+  },
+  mobile: {
+    breakpoint: { max: 464, min: 0 },
+    items: 1,
+    slidesToSlide: 1, // optional, default to 1.
+  },
+};
 const Team = () => {
+  const CustomLeftArrow = ({ onClick }) => {
+    return (
+      <button
+        onClick={onClick}
+        className="bg-[#E6E6E6] flex items-center justify-center rounded-full w-[38px] h-[38px]  absolute bottom-0 right-16">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none">
+          <path
+            d="M7.97461 15.0583L2.91628 10L7.97461 4.94167"
+            stroke="#666666"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M17.083 10L3.05801 10"
+            stroke="#666666"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    );
+  };
+  const CustomRightArrow = ({ onClick }) => {
+    return (
+      <button
+        onClick={onClick}
+        className=" w-[38px] h-[38px]  absolute bottom-0 -right-17  bg-[#E6E6E6] flex items-center justify-center rounded-full  ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 20 20"
+          fill="none">
+          <path
+            d="M12.0254 4.94167L17.0837 10L12.0254 15.0583"
+            stroke="#666666"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M2.91699 10H16.942"
+            stroke="#666666"
+            stroke-width="1.5"
+            stroke-miterlimit="10"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </button>
+    );
+  };
   return (
-    <div className="container mx-auto grid grid-cols-3 gap-5">
-      <div className="border  relative h-[424px] rounded-[8px]">
-        <Image
-          src="/person.png"
-          width={1000}
-          height={1000}
-          alt=""
-          className=" h-full w-full rounded-[8px]"
-        />
-        <div className="px-6 py-4 w-full flex flex-col items-start gap-2   backdrop-blur-[50px] absolute bottom-0 ">
-          <div className="flex justify-between  items-center w-full   ">
-            <h1 className="text-[#1A1A1A] text-2xl font-semibold leading-8">
-              Abdul Hasem
-            </h1>
-            <div className="flex gap-3">
-              <Facebook />
-              <Instgram />
-              <Twitter />
+    <div className="container mx-auto  gap-4 flex">
+      <div className="w-9/12">
+        <Carousel
+          responsive={responsive}
+          width="100%"
+          itemClass="carousel-item-padding-40-px px-4 "
+          customLeftArrow={<CustomLeftArrow />}
+          customRightArrow={<CustomRightArrow />}
+          transitionDuration={1500}>
+          {[1, 2, 3, 4, 5, 6, 2, 2, 2, 2, 2, 2].map((item) => (
+            <div
+              className="border  relative h-[424px] rounded-[8px]  "
+              key={item}>
+              <Image
+                src="/person.png"
+                width={1000}
+                height={1000}
+                alt=""
+                className=" h-full w-full rounded-[8px]"
+              />
+              <div className="px-6 py-4 w-full flex flex-col items-start gap-2   backdrop-blur-[50px] absolute bottom-0  rounded-[8px]">
+                <div className="flex justify-between  items-center w-full   ">
+                  <h1 className="text-[#1A1A1A] text-2xl font-semibold leading-8">
+                    Abul Hasem
+                  </h1>
+                  <div className="flex gap-3">
+                    <Facebook />
+                    <Instgram />
+                    <Twitter />
+                  </div>
+                </div>
+                <div className="text-[#4D4D4D] font-normal leading-6 text-[16px]">
+                  <span> CEO & Founder</span>
+                </div>
+              </div>
             </div>
-          </div>
-          <div className="text-[#4D4D4D] font-normal leading-6 text-[16px]">
-            <span> CEO & Founder</span>
-          </div>
-        </div>
+          ))}
+        </Carousel>
       </div>
+      <div></div>
     </div>
   );
 };

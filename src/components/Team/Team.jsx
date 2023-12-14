@@ -1,113 +1,145 @@
 "use client";
 import Image from "next/image";
-import React from "react";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 1024 },
-    items: 3,
-    slidesToSlide: 3, // optional, default to 1.
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 2,
-    slidesToSlide: 2, // optional, default to 1.
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 0 },
-    items: 1,
-    slidesToSlide: 1, // optional, default to 1.
-  },
-};
-const Team = () => {
-  const CustomLeftArrow = ({ onClick }) => {
-    return (
-      <button
-        onClick={onClick}
-        className="bg-[#E6E6E6] flex items-center justify-center rounded-full w-[38px] h-[38px]  absolute bottom-0 right-16">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none">
-          <path
-            d="M7.97461 15.0583L2.91628 10L7.97461 4.94167"
-            stroke="#666666"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M17.083 10L3.05801 10"
-            stroke="#666666"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-    );
-  };
-  const CustomRightArrow = ({ onClick }) => {
-    return (
-      <button
-        onClick={onClick}
-        className=" w-[38px] h-[38px]  absolute bottom-0 -right-17  bg-[#E6E6E6] flex items-center justify-center rounded-full  ">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none">
-          <path
-            d="M12.0254 4.94167L17.0837 10L12.0254 15.0583"
-            stroke="#666666"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-          <path
-            d="M2.91699 10H16.942"
-            stroke="#666666"
-            stroke-width="1.5"
-            stroke-miterlimit="10"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
-      </button>
-    );
-  };
+import React, { useEffect } from "react";
+import Slider from "react-slick";
+
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import style from "./style.module.css";
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
   return (
-    <div className="container mx-auto  gap-4 flex">
-      <div className="w-9/12">
-        <Carousel
-          responsive={responsive}
-          width="100%"
-          itemClass="carousel-item-padding-40-px px-4 "
-          customLeftArrow={<CustomLeftArrow />}
-          customRightArrow={<CustomRightArrow />}
-          transitionDuration={1500}>
-          {[1, 2, 3, 4, 5, 6, 2, 2, 2, 2, 2, 2].map((item) => (
+    <div
+      className={`${className} next-new-arrow`}
+      style={{
+        ...style,
+
+        right: "-5%",
+        top: "86%",
+        background: "#E6E6E6",
+        width: "30px",
+        height: "30px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "50%",
+        boxShadow:
+          "0px 2px 4px -1px rgba(37, 37, 37, 0.06), 0px 4px 6px -1px rgba(37, 37, 37, 0.10)",
+      }}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <button
+      // {...props} className="custom-prev-arrow",
+      className={`${className} prev-new-arrow`}
+      style={{
+        ...style,
+        display: "block",
+        left: "107%",
+        top: "86%",
+        background: "#E6E6E6",
+        width: "30px",
+        height: "30px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "50%",
+        boxShadow:
+          "0px 2px 4px -1px rgba(37, 37, 37, 0.06), 0px 4px 6px -1px rgba(37, 37, 37, 0.10)",
+      }}
+      onClick={onClick}>
+      prevsdfsaf
+    </button>
+  );
+}
+
+const Team = () => {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    initialSlide: 0,
+    autoplay: false,
+    autoplaySpeed: 2000,
+
+    // speed: 1500,
+    className: " pb-10",
+    responsive: [
+      {
+        breakpoint: 2024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 1280,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+          dots: false,
+        },
+      },
+      {
+        breakpoint: 640,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          dots: false,
+        },
+      },
+    ],
+  };
+  const [increment, setIncrement] = React.useState({ item: "" });
+  useEffect(() => {
+    // Create a new element (div)
+    var newElement = document.createElement("div");
+
+    // Set the class name for the new element
+    newElement.className = "slick-next";
+
+    // Set the content using an inline SVG as a data URI
+    newElement.innerHTML = "frsdf ";
+
+    // Append the new element before the existing element with class "slick-next"
+    var existingElement = document.querySelector(".slick-next");
+    existingElement.parentNode.insertBefore(newElement, existingElement);
+  }, []);
+  return (
+    <div className="container mx-auto  gap-4 flex  ">
+      <div className="xl:w-[90%] w-full">
+        <Slider {...settings}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((item) => (
             <div
-              className="border  relative h-[424px] rounded-[8px]  "
+              className={` ${
+                increment.item == item ? " card-div-active" : ""
+              } border  relative h-[424px] rounded-[8px] hidden cursor-pointer  `}
               key={item}>
               <Image
                 src="/person.png"
                 width={1000}
                 height={1000}
                 alt=""
-                className=" h-full w-full rounded-[8px]"
+                className=" h-full w-full rounded-[8px] object-cover"
+                onClick={() => setIncrement({ item: item })}
               />
-              <div className="px-6 py-4 w-full flex flex-col items-start gap-2   backdrop-blur-[50px] absolute bottom-0  rounded-[8px]">
-                <div className="flex justify-between  items-center w-full   ">
-                  <h1 className="text-[#1A1A1A] text-2xl font-semibold leading-8">
-                    Abul Hasem
+              <div className="px-6   py-4 w-full flex flex-col items-start gap-2 backdrop-blur-lg  shadow-none absolute bottom-0  rounded-bl-[8px] rounded-br-[8px] border-t border-orange-[#E2E2E2]  ">
+                <div className="flex justify-between  items-center w-full ">
+                  <h1 className="text-[#1A1A1A] md:text-2xl text-lg font-semibold leading-8">
+                    Abul Hasem {item}
                   </h1>
                   <div className="flex gap-3">
                     <Facebook />
@@ -115,13 +147,13 @@ const Team = () => {
                     <Twitter />
                   </div>
                 </div>
-                <div className="text-[#4D4D4D] font-normal leading-6 text-[16px]">
+                <div className="text-[#4D4D4D] font-normal leading-6 md:text-[16px] text-sm ">
                   <span> CEO & Founder</span>
                 </div>
               </div>
             </div>
           ))}
-        </Carousel>
+        </Slider>
       </div>
       <div></div>
     </div>

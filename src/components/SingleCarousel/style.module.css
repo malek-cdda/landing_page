@@ -1,0 +1,28 @@
+.slick-prev:before {
+  content: "" !important;
+}
+
+.slick-next:before {
+  content: "" !important;
+}
+
+@media (max-width: 1280px) {
+  .slick-prev {
+    top: 95% !important;
+    left: 95% !important;
+  }
+  .slick-next {
+    right: 7% !important;
+    top: 95% !important;
+  }
+}
+@media (max-width: 653px) {
+  .slick-prev {
+    top: 95% !important;
+    left: 91% !important;
+  }
+  .slick-next {
+    right: 11% !important;
+    top: 95% !important;
+  }
+}

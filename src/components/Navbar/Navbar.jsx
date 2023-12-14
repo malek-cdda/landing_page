@@ -1,9 +1,14 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
+import { useParams } from "next/navigation";
+
 import { useState } from "react";
 
 export default function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const route = useParams();
+  console.log(route);
+  console.log(window.location.pathname);
   return (
     <div className="container mx-auto mt-12  ">
       <div className="flex justify-between items-center border border-[#E6E6E6] shadow-md px-7 py-4 rounded-[8px]">
@@ -11,38 +16,41 @@ export default function Navbar() {
           <Image src="/Logo.svg" width={100} height={100} alt="" />
         </div>
         <div className=" hidden lg:block">
-          <ul className="flex items-center lg:text-sm  font-medium gap-4">
-            <li className="group flex item-center gap-1.5 relative">
-              <span>What We Do</span>
-              <span className="flex items-center   group-hover:rotate-180">
+          <ul className="flex items-center lg:text-sm  font-medium  ">
+            <li className="group flex item-center  relative submenu">
+              {/* <span>What We Do</span> */}
+              <Link
+                href="/service"
+                className={` ${
+                  window.location.pathname == "/" ? "bg-[#2AA7DF]" : ""
+                }  flex justify-center items-center gap-1.5 px-2  text-[#333] font-medium    py-2  rounded`}>
+                What We Do
+              </Link>
+              {/* <span className="flex items-center   group-hover:rotate-180">
                 <DownArrow />
               </span>
-              <div className="group-hover:block hidden shadow-md bg-white absolute top-5 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out">
+              <div className="group-hover:block hidden shadow-md bg-white absolute top-5 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out submenu-item">
                 <ul className="space-y-1">
                   <li>Item-1</li>
                   <li>Item-1</li>
                   <li>Item-1</li>
                   <li>Item-1</li>
                 </ul>
-              </div>
+              </div> */}
             </li>
-            <li className="flex item-center gap-1.5">
-              <span>Engagement Models</span>
-              <span className="flex items-center">
-                <DownArrow />
-              </span>
+            <li className="group relative flex item-center gap-1.5 submenu">
+              <Link
+                href=""
+                className="focus:bg-[#2AA7DF] flex justify-center items-center gap-1.5 px-2 text-[#333] font-medium    py-2  rounded">
+                Engagement Models
+              </Link>
+              {/* <span></span> */}
             </li>
-            <li className="flex item-center gap-1.5">
+            <li className="group relative flex item-center gap-1.5 submenu">
               <span>Industries</span>
-              <span className="flex items-center">
-                <DownArrow />
-              </span>
             </li>
-            <li className="flex item-center gap-1.5">
+            <li className="group relative flex item-center gap-1.5 submenu">
               <span>About US</span>
-              <span className="flex items-center">
-                <DownArrow />
-              </span>
             </li>
             <li className="flex item-center gap-1.5">
               <span>Contact Us</span>
@@ -61,49 +69,99 @@ export default function Navbar() {
             </button>
           </div>
 
-          {!isMobileMenuOpen ? (
-            <button
-              className=" flex lg:hidden justify-center items-center gap-1.5 rounded-full border border-[#1F1F1F] p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <span className="flex items-center   rounded-full">
-                <MenuItem />
-              </span>
-            </button>
-          ) : (
-            <button
-              className=" flex lg:hidden justify-center items-center gap-1.5 rounded-full border border-[#1F1F1F] p-2"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              <span className="flex items-center   rounded-full">
-                <CloseMenu />
-              </span>
-            </button>
-          )}
+          <button class=" peer  transition flex lg:hidden justify-center items-center gap-1.5 rounded-full border  border-gray-600/50 p-2">
+            <span className="flex items-center   rounded-full text-">
+              <MenuItem />
+            </span>
+          </button>
+          <ResponsiveMenubar />
         </div>
       </div>
-      {isMobileMenuOpen && <ResponsiveMenubar />}
     </div>
   );
 }
 
 const ResponsiveMenubar = () => {
   return (
-    <div className="h-screen absolute right-0 top-28  ">
-      <ul className=" h-screen w-[250px] bg-white shadow-md">
-        <li className="group flex item-center gap-1.5 relative">
-          <span>What We Do</span>
-          <span className="flex items-center   group-hover:rotate-180">
-            <DownArrow />
+    <div class=" fixed top-0 -right-[900px] lg:right-0 h-screen w-[200px] lg:hidden bg-white shadow-2xl peer-focus:right-0 peer:transition ease-out delay-150 duration-300">
+      <div>
+        <button className="  flex lg:hidden  absolute right-5 top-5 gap-1.5 rounded-full border border-gray-600/50 p-2">
+          <span className="flex items-center   rounded-full">
+            <CloseMenu />
           </span>
-          <div className="group-hover:block hidden shadow-md bg-white absolute top-5 -left-32 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out">
-            <ul className="space-y-1">
-              <li>Item-1</li>
-              <li>Item-1</li>
-              <li>Item-1</li>
-              <li>Item-1</li>
-            </ul>
-          </div>
-        </li>
-      </ul>
+        </button>
+        <ul className="flex flex-col  lg:text-sm space-x-2 font-medium gap-4 pt-20 text-left">
+          <li className="group flex item-center gap-1.5 relative submenu2 px-2">
+            <span>What We Do</span>
+            <span className="flex items-center   group-hover:rotate-180">
+              <DownArrow />
+            </span>
+            <div className="group-hover:block hidden shadow-md z-50 bg-white absolute top-5 left-0 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out submenu-item2">
+              <ul className="space-y-1 bg-white">
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+              </ul>
+            </div>
+          </li>
+          <li className="group flex item-center gap-1.5 relative submenu2">
+            <span>Engagement Models</span>
+            <span className="flex items-center   group-hover:rotate-180">
+              <DownArrow />
+            </span>
+            <div className="group-hover:block hidden shadow-md z-50 bg-white absolute top-5 left-0 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out submenu-item2">
+              <ul className="space-y-1 bg-white">
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+              </ul>
+            </div>
+          </li>
+          <li className="group flex item-center gap-1.5 relative submenu2">
+            <span>Industries</span>
+            <span className="flex items-center   group-hover:rotate-180">
+              <DownArrow />
+            </span>
+            <div className="group-hover:block hidden shadow-md z-50 bg-white absolute top-5 left-0 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out submenu-item2">
+              <ul className="space-y-1 bg-white">
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+              </ul>
+            </div>
+          </li>
+          <li className="group flex item-center gap-1.5 relative submenu2">
+            <span>About Us</span>
+            <span className="flex items-center   group-hover:rotate-180">
+              <DownArrow />
+            </span>
+            <div className="group-hover:block hidden shadow-md z-50 bg-white absolute top-5 left-0 rounded-[8px] w-[130px] px-2 py-2 transition-all duration-1000 ease-in-out submenu-item2">
+              <ul className="space-y-1 bg-white">
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+                <li>Item-1</li>
+              </ul>
+            </div>
+          </li>
+          <li className="group flex item-center gap-1.5 relative submenu2">
+            <span>Contact Us</span>
+          </li>
+        </ul>
+        <div className="flex flex-col items-start sm:hidden justify-start space-x-2  gap-4 text-sm font-medium">
+          <button className="text-[#1F1F1F] px-2 pt-2"> Sign in </button>
+
+          <button className="flex justify-center items-center gap-1.5 bg-[#2AA7DF]   text-white font-bold py-2 px-4 rounded">
+            <span>Get Started</span>
+            <span className="flex items-center   ">
+              <ArrowRight />
+            </span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
@@ -182,7 +240,7 @@ const MenuItem = () => {
             y1="4.66675"
             x2="14"
             y2="4.66675"
-            stroke="#333333"
+            stroke="#4b556380"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
@@ -192,7 +250,7 @@ const MenuItem = () => {
             y1="8"
             x2="14"
             y2="8"
-            stroke="#333333"
+            stroke="#4b556380"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
@@ -202,7 +260,7 @@ const MenuItem = () => {
             y1="11.3333"
             x2="14"
             y2="11.3333"
-            stroke="#333333"
+            stroke="#4b556380"
             strokeWidth="1.5"
             strokeLinecap="round"
           />
@@ -222,7 +280,7 @@ const CloseMenu = () => {
       xmlns="http://www.w3.org/2000/svg">
       <path
         d="M1 1L15 15M1 15L15 1"
-        stroke="#333333"
+        stroke="#4b556380"
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
